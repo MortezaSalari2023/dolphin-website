@@ -19,36 +19,43 @@ const products = [
     title: "پلتفرم مرکزی و مدیریت اطلاعات دلفین",
     description: "مدیریت متمرکز اطلاعات و فرایندهای سازمانی در یک بستر یکپارچه.",
     icon: Layers3,
+    href: "/products/central-platform",
   },
   {
     title: "اتوماسیون تغذیه",
     description: "راهکاری نرم‌افزاری برای مدیریت فرایندهای مرتبط با تغذیه سازمانی.",
     icon: Utensils,
+    href: "/products/food-automation",
   },
   {
     title: "سیستم مدیریت خدمات رفاهی کارکنان",
     description: "مدیریت و سامان‌دهی خدمات رفاهی کارکنان سازمان.",
     icon: Users,
+    href: "/products/welfare",
   },
   {
     title: "سامانه پایش شرایط اتاق سرور",
     description: "پایش شرایط محیطی و وضعیت زیرساخت اتاق سرور.",
     icon: Server,
+    href: "/products/server-monitoring",
   },
   {
     title: "سامانه نظام پیشنهادات",
     description: "بستری برای ثبت، مدیریت و بررسی پیشنهادهای سازمانی.",
     icon: Lightbulb,
+    href: "/products/suggestions",
   },
   {
     title: "سیستم خرید دلفین",
     description: "راهکار مدیریت فرایندهای خرید سازمانی و تأمین نیازمندی‌ها.",
     icon: ShoppingCart,
+    href: "/products/procurement",
   },
   {
     title: "سیستم پلاک‌خوان هوشمند",
     description: "راهکار تشخیص پلاک و مدیریت هوشمند تردد خودروها.",
     icon: ScanFace,
+    href: "/products/license-plate",
   },
 ];
 
@@ -87,10 +94,13 @@ export default function ProductsPage() {
             const Icon = product.icon;
 
             return (
-              <article
-                key={product.title}
-                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#111522]/80 p-7 transition-all duration-500 hover:-translate-y-2 hover:border-violet-400/40 hover:bg-[#171a2b]"
-              >
+
+<Link
+  key={product.href}
+  href={product.href}
+  className="group relative block overflow-hidden rounded-3xl border border-white/10 bg-[#111522]/80 p-7 transition-all duration-500 hover:-translate-y-2 hover:border-violet-400/40 hover:bg-[#171a2b]"
+>
+
                 {/* نورپردازی پس‌زمینه کارت */}
                 <div className="pointer-events-none absolute -left-16 -top-16 h-40 w-40 rounded-full bg-violet-600/10 blur-[70px] transition-all duration-500 group-hover:bg-violet-500/25" />
 
@@ -124,7 +134,7 @@ export default function ProductsPage() {
                     />
                   </div>
                 </div>
-              </article>
+              </Link>
             );
           })}
 

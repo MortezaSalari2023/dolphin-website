@@ -160,7 +160,7 @@ export default function PortalServicesPage() {
       {/* نورپردازی پس‌زمینه */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -right-40 top-20 h-[400px] w-[400px] rounded-full bg-blue-600/10 blur-[130px]" />
-        <div className="absolute -left-40 top-[650px] h-[400px] w-[400px] rounded-full bg-purple-600/10 blur-[130px]" />
+        <div className="absolute -left-40 top-[650px] h-[400px] w-[400px] rounded-full bg-orange-500/10 blur-[130px]" />
       </div>
 
       <div className="relative mx-auto max-w-[1500px] px-5 py-10 sm:px-8 lg:px-12">
@@ -344,7 +344,7 @@ export default function PortalServicesPage() {
         )}
 
         {/* ارتباط با پشتیبانی */}
-        <div className="mt-10 flex flex-col gap-5 rounded-3xl border border-blue-400/15 bg-gradient-to-l from-blue-950/50 to-purple-950/30 p-7 sm:flex-row sm:items-center sm:justify-between">
+<div className="mt-10 flex flex-col gap-5 rounded-3xl border border-blue-400/15 bg-gradient-to-l from-blue-950/50 to-orange-950/30 p-7 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-500/15 text-blue-400">
               <Headset size={24} />

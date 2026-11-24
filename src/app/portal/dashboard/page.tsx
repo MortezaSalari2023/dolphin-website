@@ -92,15 +92,16 @@ export default function PortalDashboardPage() {
           <nav className="space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon;
-              const isActive = activeMenu === item.title;
+              
 
               return (
   
 <Link
   key={item.title}
   href={item.href}
+  onClick={() => setActiveMenu(item.title)}
   className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3.5 text-sm font-medium transition-all duration-200 ${
-    item.href === "/portal/dashboard"
+   activeMenu === item.title
       ? "border-blue-300/15 bg-blue-400/15 text-blue-300 shadow-inner"
       : "border-transparent text-slate-400 hover:border-blue-300/10 hover:bg-blue-400/[0.07] hover:text-white"
   }`}
@@ -131,11 +132,12 @@ export default function PortalDashboardPage() {
         {/* منوی موبایل */}
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-50 lg:hidden">
-            <button
-              aria-label="بستن منو"
-              onClick={() => setMobileMenuOpen(false)}
-              className="rounded-xl border border-blue-300/10 p-2 text-slate-400 transition hover:bg-blue-400/10 hover:text-white"
-            />
+{/* پس‌زمینه تاریک پشت منوی موبایل */}
+<button
+  aria-label="بستن منو"
+  onClick={() => setMobileMenuOpen(false)}
+  className="absolute inset-0 h-full w-full bg-black/60 backdrop-blur-sm"
+/>
 
 <aside className="absolute right-0 top-0 flex h-full w-[280px] max-w-[85vw] flex-col border-l border-blue-300/15 bg-gradient-to-b from-[#172d4b] via-[#142641] to-[#10213a] p-6 shadow-[-15px_0_50px_rgba(0,0,0,0.3)]">
               <div className="mb-10 flex items-center justify-between">
@@ -153,16 +155,19 @@ export default function PortalDashboardPage() {
               <nav className="space-y-2">
                 {menuItems.map((item) => {
                   const Icon = item.icon;
-                  const isActive = activeMenu === item.title;
+                 
 
                   return (
                     
 <Link
   key={item.title}
   href={item.href}
-  onClick={() => setMobileMenuOpen(false)}
+onClick={() => {
+  setActiveMenu(item.title);
+  setMobileMenuOpen(false);
+}}
   className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3.5 text-sm font-medium transition-all duration-200 ${
-    item.href === "/portal/dashboard"
+   activeMenu === item.title
       ? "border-blue-300/15 bg-blue-400/15 text-blue-300 shadow-inner"
       : "border-transparent text-slate-400 hover:border-blue-300/10 hover:bg-blue-400/[0.07] hover:text-white"
   }`}
@@ -338,13 +343,13 @@ className="group relative overflow-hidden rounded-2xl border border-blue-300/10 
       </p>
     </div>
 
-    <button
-      onClick={() => setActiveMenu("سرویس‌های من")}
-      className="flex items-center gap-2 text-sm font-bold text-blue-300 transition hover:text-cyan-300"
-    >
-      مشاهده همه
-      <ArrowLeft size={16} />
-    </button>
+<Link
+  href="/portal/services"
+  className="flex items-center gap-2 text-sm font-bold text-blue-300 transition hover:text-cyan-300"
+>
+  مشاهده همه
+  <ArrowLeft size={16} />
+</Link>
   </div>
 
   {/* فهرست سرویس‌ها */}
@@ -440,17 +445,20 @@ className="group relative overflow-hidden rounded-3xl border border-blue-200/10 
                   </div>
                 </div>
 
-                <button
-                  onClick={() => setActiveMenu("درخواست‌های پشتیبانی")}
-                  className="mt-7 flex items-center gap-2 text-sm font-bold text-blue-400"
-                >
-                  مشاهده درخواست‌ها
-                  <ArrowLeft size={16} />
-                </button>
+ <Link
+  href="/portal/support"
+  className="mt-7 flex items-center gap-2 text-sm font-bold text-blue-400 transition hover:text-cyan-300"
+>
+  مشاهده درخواست‌ها
+  <ArrowLeft size={16} />
+</Link>
               </div>
 
-              {/* اطلاعیه‌ها */}
-              <div className="rounded-3xl border border-white/10 bg-[#101525]/70 p-4 sm:p-6 lg:p-8">
+{/* اطلاعیه‌ها */}
+<div
+  id="announcements"
+  className="rounded-3xl border border-white/10 bg-[#101525]/70 p-4 sm:p-6 lg:p-8"
+>
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-black">
                     اطلاعیه‌ها

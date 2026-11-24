@@ -79,6 +79,8 @@ export default function SupportPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("همه");
   const [showForm, setShowForm] = useState(false);
+  // درخواست انتخاب‌شده برای نمایش جزئیات
+const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
 
   // اطلاعات فرم ثبت درخواست
   const [title, setTitle] = useState("");
@@ -136,7 +138,7 @@ export default function SupportPage() {
     >
       {/* نورپردازی پس‌زمینه */}
       <div className="pointer-events-none absolute -right-40 top-0 h-96 w-96 rounded-full bg-blue-600/10 blur-[130px]" />
-      <div className="pointer-events-none absolute -left-40 top-96 h-96 w-96 rounded-full bg-purple-600/10 blur-[130px]" />
+      <div className="pointer-events-none absolute -left-40 top-96 h-96 w-96 rounded-full bg-orange-500/10 blur-[130px]" />
 
       <div className="relative mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-12 lg:py-12">
 
@@ -311,17 +313,13 @@ export default function SupportPage() {
                     </div>
 
                     <div className="flex items-center justify-end">
-                      <button
-                        onClick={() =>
-                          alert(
-                            `جزئیات درخواست ${ticket.id}\n\n${ticket.description}\n\nاین بخش در نسخه بعدی به صفحه جزئیات و گفت‌وگوی پشتیبانی متصل می‌شود.`
-                          )
-                        }
-                        className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-xs text-slate-300 transition hover:border-blue-500/40 hover:bg-blue-500/10 hover:text-blue-300"
-                      >
-                        مشاهده جزئیات
-                        <ChevronLeft size={15} />
-                      </button>
+<button
+  onClick={() => setSelectedTicket(ticket)}
+  className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-xs text-slate-300 transition hover:border-blue-500/40 hover:bg-blue-500/10 hover:text-blue-300"
+>
+  مشاهده جزئیات
+  <ChevronLeft size={15} />
+</button>
                     </div>
                   </div>
                 </div>
@@ -477,6 +475,75 @@ export default function SupportPage() {
           </div>
         </div>
       )}
+      {/* پنجره نمایش جزئیات درخواست */}
+{selectedTicket && (
+  <div className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-black/75 p-4 backdrop-blur-sm">
+    <div className="relative my-auto max-h-[calc(100dvh-2rem)] w-full max-w-xl overflow-y-auto rounded-3xl border border-white/10 bg-[#101525] p-6 shadow-2xl sm:p-8">
+
+      <button
+        onClick={() => setSelectedTicket(null)}
+        aria-label="بستن پنجره"
+        className="absolute left-5 top-5 rounded-xl border border-white/10 p-2 text-slate-400 transition hover:bg-white/10 hover:text-white"
+      >
+        <X size={19} />
+      </button>
+
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400">
+        <MessageCircle size={27} />
+      </div>
+
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <span className="text-sm font-bold text-blue-400">
+          {selectedTicket.id}
+        </span>
+
+        <span className={`rounded-full border px-3 py-1 text-xs ${statusStyles[selectedTicket.status]}`}>
+          {selectedTicket.status}
+        </span>
+      </div>
+
+      <h2 className="mt-4 pl-8 text-xl font-black leading-9">
+        {selectedTicket.title}
+      </h2>
+
+      <p className="mt-5 text-sm leading-8 text-slate-400">
+        {selectedTicket.description}
+      </p>
+
+      <div className="mt-7 space-y-4 border-t border-white/10 pt-6">
+        <div className="flex justify-between gap-3 text-sm">
+          <span className="text-slate-500">دسته‌بندی</span>
+          <span className="text-slate-300">{selectedTicket.category}</span>
+        </div>
+
+        <div className="flex justify-between gap-3 text-sm">
+          <span className="text-slate-500">اولویت</span>
+          <span className={priorityStyles[selectedTicket.priority]}>
+            {selectedTicket.priority}
+          </span>
+        </div>
+
+        <div className="flex justify-between gap-3 text-sm">
+          <span className="text-slate-500">تاریخ ثبت</span>
+          <span className="text-slate-300">{selectedTicket.date}</span>
+        </div>
+      </div>
+
+      <div className="mt-8 border-t border-white/10 pt-6">
+        <p className="text-xs leading-7 text-slate-500">
+          اطلاعات نمایش‌داده‌شده نمونه هستند و هنوز به سامانه واقعی پشتیبانی متصل نشده‌اند.
+        </p>
+
+        <button
+          onClick={() => setSelectedTicket(null)}
+          className="mt-5 w-full rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold transition hover:bg-blue-500"
+        >
+          بستن پنجره
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </main>
   );
 }
