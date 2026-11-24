@@ -1,41 +1,27 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# وابستگی‌های پروژه
+node_modules/
 
-# testing
-/coverage
+# خروجی‌های Next.js
+.next/
+out/
+build/
+dist/
 
-# next.js
-/.next/
-/out/
+# فایل‌های محیطی و اطلاعات محرمانه
+.env
+.env.*
+!.env.example
 
-# production
-/build
-
-# misc
+# تنظیمات محلی
+.vercel/
 .DS_Store
-*.pem
+Thumbs.db
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
+# فایل‌های موقت و گزارش‌ها
+*.log
+logs/
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
+# فایل‌های TypeScript
 *.tsbuildinfo
 next-env.d.ts

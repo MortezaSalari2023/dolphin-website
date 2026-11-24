@@ -1,26 +1,247 @@
+
 @import "tailwindcss";
+@import "@fontsource-variable/vazirmatn";
+
+/* =========================================
+   رنگ‌ها و متغیرهای اصلی هویت بصری دلفین
+   ========================================= */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080914;
+  --foreground: #f5f5fa;
+
+  /* رنگ‌های اصلی لوگوی دلفین */
+  --brand-blue: #1688d4;
+  --brand-orange: #f28c28;
+
+  /* رنگ‌های مکمل محیط سه‌بعدی */
+  --neon-purple: #9b5cff;
+  --neon-blue: #398cff;
+
+  --surface: #111326;
+  --surface-light: #1a1d35;
+  --border: rgba(255, 255, 255, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* تنظیمات عمومی تمام صفحات */
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  margin: 0;
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Vazirmatn Variable", sans-serif;
+  direction: rtl;
+  text-align: right;
+  overflow-x: hidden;
+}
+
+/* انتخاب متن توسط کاربر */
+::selection {
+  background: var(--neon-purple);
+  color: white;
+}
+
+/* لینک‌ها */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* دکمه‌ها و ورودی‌ها از فونت اصلی استفاده کنند */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* تصاویر از محدوده والد خارج نشوند */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* اسکرول‌بار متناسب با تم تاریک */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #45405f;
+  border-radius: 10px;
+}
+
+/* رعایت تنظیمات کاهش حرکت برای کاربران */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+
+/* =========================================
+   تم سرمه‌ای آبی پورتال مشتریان دلفین
+   ========================================= */
+
+html[data-portal-theme="dark"] body {
+  background: #172b49;
+}
+
+/* پس‌زمینه اصلی صفحات پورتال */
+html[data-portal-theme="dark"] main {
+  background-color: #172b49 !important;
+  background-image:
+    radial-gradient(
+      ellipse at 85% 8%,
+      rgba(75, 151, 235, 0.28),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 8% 75%,
+      rgba(35, 119, 185, 0.22),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 55% 110%,
+      rgba(28, 87, 145, 0.22),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      #203b60 0%,
+      #192f4f 50%,
+      #213d61 100%
+    );
+  background-attachment: fixed;
+}
+
+/* کارت‌های داشبورد؛ تیره‌تر از پس‌زمینه */
+html[data-portal-theme="dark"] main [class*="bg-white/"] {
+  background-color: rgba(10, 26, 49, 0.68);
+  border-color: rgba(133, 177, 225, 0.13);
+}
+
+/* حاشیه و عمق کارت‌ها */
+html[data-portal-theme="dark"] main [class*="rounded-"] {
+  transition:
+    border-color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+/* درخشش ظریف هنگام قرار گرفتن نشانگر روی کارت */
+html[data-portal-theme="dark"] main [class*="bg-white/"]:hover {
+  border-color: rgba(100, 170, 245, 0.30);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+
+
+
+/* =========================================
+   هماهنگی سایدبار با پس‌زمینه جدید پورتال
+   ========================================= */
+
+html[data-portal-theme="dark"] aside {
+  background: linear-gradient(
+    180deg,
+    #142744 0%,
+    #10213b 100%
+  ) !important;
+
+  border-color: rgba(120, 170, 225, 0.14) !important;
+}
+
+/* حاشیه ظریف آیتم‌های منو */
+html[data-portal-theme="dark"] aside a,
+html[data-portal-theme="dark"] aside button {
+  transition: all 250ms ease;
+}
+
+/* حالت انتخاب‌شده منو */
+html[data-portal-theme="dark"] aside [aria-current="page"] {
+  background-color: rgba(40, 110, 210, 0.20);
+  border-color: rgba(75, 145, 235, 0.25);
+}
+
+
+/* =========================================
+   نوار بالایی اختصاصی پورتال دلفین
+   ========================================= */
+
+/* فقط هدر داخل محدوده پورتال تغییر می‌کند */
+html[data-portal-theme="dark"] .portal-shell header {
+  background: linear-gradient(
+    100deg,
+    #172d4b 0%,
+    #132744 55%,
+    #10223d 100%
+  ) !important;
+
+  border-color: rgba(120, 170, 225, 0.16) !important;
+}
+
+/* خطوط جداکننده هدر */
+html[data-portal-theme="dark"] .portal-shell header [class*="border-white/"] {
+  border-color: rgba(140, 180, 225, 0.15) !important;
+}
+
+
+/* =========================================
+   افکت‌های تعاملی منوی پورتال دلفین
+   ========================================= */
+
+/* حرکت نرم آیتم‌های منو */
+html[data-portal-theme="dark"] .portal-shell aside a,
+html[data-portal-theme="dark"] .portal-shell aside button {
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    color 250ms ease,
+    transform 250ms ease;
+}
+
+/* افکت هنگام قرار گرفتن ماوس روی منو */
+html[data-portal-theme="dark"] .portal-shell aside a:hover,
+html[data-portal-theme="dark"] .portal-shell aside button:hover {
+  background-color: rgba(65, 135, 220, 0.15);
+  border-color: rgba(90, 160, 240, 0.25);
+  color: #8fc4ff;
+}
+
+/* مشخص کردن صفحه فعال */
+html[data-portal-theme="dark"] .portal-shell aside [aria-current="page"] {
+  background: linear-gradient(
+    100deg,
+    rgba(35, 105, 205, 0.28),
+    rgba(35, 105, 205, 0.12)
+  ) !important;
+
+  border-color: rgba(85, 155, 240, 0.30) !important;
+  color: #8fc4ff !important;
+
+  box-shadow: inset -3px 0 0 #4295ed;
+}
+
+/* هماهنگی رنگ تأکیدی نارنجی برند دلفین */
+html[data-portal-theme="dark"] .portal-shell [data-accent="orange"] {
+  color: #ff9b52;
 }
